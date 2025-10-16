@@ -1,42 +1,77 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  background-color: whitesmoke;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
   text-align: center;
+  color: black;
+  margin: 20px 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ficha {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  background-color: white;
+  width: 220px;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.ficha img {
+  width: 100%;
+  border-radius: 6px;
 }
 
-.card {
-  padding: 2em;
+.ficha h3 {
+  margin: 5px 0;
+  color: black;
 }
 
-.read-the-docs {
-  color: #888;
+.ficha p {
+  margin: 4px 0;
+  color: lightgray;
+  font-size: 14px;
+}
+
+.ficha ul {
+  margin: 5px 0;
+  padding-left: 18px;
+}
+
+.ficha li {
+  font-size: 13px;
+  color: gray;
+}
+
+.ficha button {
+  background-color: dodgerblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.ficha button:hover {
+  background-color: deepskyblue;
+}
+
+.no-stock {
+  color: red;
+  font-weight: bold;
+}
+
+.ficha span {
+  color: green;
+  font-weight: bold;
+  margin-left: 5px;
 }
