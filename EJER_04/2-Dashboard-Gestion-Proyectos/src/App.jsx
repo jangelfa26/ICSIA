@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { initialProjects } from './datos/projects';
-import { ProjectColumn } from './components/ProjectColumn';
+import { initialProjects } from './datos/proyectos';
+import { ProjectColumn } from './components/ProjectColum';
 export default function App() {
   const [projects, setProjects] = useState(initialProjects);
   const [busqueda, setBusqueda] = useState('');
