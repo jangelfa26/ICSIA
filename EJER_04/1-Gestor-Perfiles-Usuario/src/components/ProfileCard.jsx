@@ -1,20 +1,29 @@
 function ProfileCard({ usuario }) {
     return <>
-        <div id="perfil">
-            <div className="infoPersonal">
-                <h1>{usuario.nombre}</h1>
+        <div className="card">
+            <div className="card-body">
+                <img src={usuario.avatarUrl} alt={usuario.nombre} className="rounded-circle mb-3" width="80" />
+                <h4>{usuario.nombre}</h4>
                 <p>{usuario.email}</p>
-            </div>
-            <div className="infoContacto">
-                <h2>Información de Contacto</h2>
-                <p><strong>Calle: </strong> {usuario.direccion.calle} </p>
-                <p><strong>Ciudad: </strong> {usuario.direccion.ciudad}</p>
-            </div>
-            <div id="aficiones">
-                {usuario.aficiones.map((aficion, index) => (
-                    <p key={index}>{aficion}</p>
-                ))}
+
+                <h5>Información de Contacto</h5>
+                <p><strong>Calle:</strong> {usuario.direccion.calle}</p>
+                <p><strong>Ciudad:</strong> {usuario.direccion.ciudad}</p>
+
+                <h5>Aficiones</h5>
+                <div>
+                    {usuario.aficiones.map((aficion, i) => (
+                        <span
+                            key={i}
+                            className="badge bg-secondary me-1"
+                        >
+                            {aficion}
+                        </span>
+                    ))}
+                </div>
             </div>
         </div>
     </>
 }
+
+export default ProfileCard;

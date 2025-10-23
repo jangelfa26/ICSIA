@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+import { useState } from 'react';
+import { initialProjects } from './datos/projects';
+import { ProjectColumn } from './components/ProjectColumn';
+export default function App() {
+  const [projects, setProjects] = useState(initialProjects);
+  const [busqueda, setBusqueda] = useState('');
+  function handleActualizarEstado(proyectoId, nuevoEstado) {
+    setProjects(prev => prev.map(p => p.id === proyectoId ? { ...p, estado: nuevoEstado } : p));
+  }
+  const pendientes = projects.filter(p => p.estado === 'Pendiente' && p.titulo.toLowerCase().includes(busqueda.toLowerCase()));
+  const enprogreso = projects.filter(p => p.estado === 'En Progreso' && p.titulo.toLowerCase().includes(busqueda.toLowerCase()));
+  const completados = projects.filter(p => p.estado === 'Completado' && p.titulo.toLowerCase().includes(busqueda.toLowerCase()));
+  return <>
+    <div className="container-fluid p-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h3>Dashboard de Proyectos</h3>
+        <input className="form-control w-25" placeholder="Buscar por título..." value={busqueda} onChange={event => setBusqueda(event.target.value)} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="row row-cols-1 row-cols-md-3 g-3">
+        <ProjectColumn titulo="Pendiente" proyectos={pendientes} onCambiarEstado={handleActualizarEstado} />
+        <ProjectColumn titulo="En Progreso" proyectos={enprogreso} onCambiarEstado={handleActualizarEstado} />
+        <ProjectColumn titulo="Completado" proyectos={completados} onCambiarEstado={handleActualizarEstado} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  </>
 }
-
-export default App

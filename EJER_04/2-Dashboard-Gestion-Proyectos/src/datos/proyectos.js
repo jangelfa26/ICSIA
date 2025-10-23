@@ -1,0 +1,12 @@
+export const initialProjects = [
+    { id: 'proj-001', titulo: 'Migración a la Nube', descripcion: 'Mover todos los servicios del servidor local a una plataforma en la nube antes de fin de mes.', estado: 'En Progreso', responsables: [{ id: 'u1', nombre: 'Paco' }, { id: 'u2', nombre: 'Lucia' }], prioridad: 'Alta' },
+    { id: 'proj-002', titulo: 'Diseño de Landing Page', descripcion: 'Crear mockups y prototipo visual para campaña de marketing.', estado: 'Pendiente', responsables: [{ id: 'u3', nombre: 'Amaia' }], prioridad: 'Media' },
+    { id: 'proj-003', titulo: 'Desarrollo API REST', descripcion: 'Crear endpoints para la nueva aplicación móvil.', estado: 'En Progreso', responsables: [{ id: 'u4', nombre: 'Jesus' }], prioridad: 'Alta' },
+    { id: 'proj-004', titulo: 'Optimización SEO', descripcion: 'Mejorar posicionamiento en buscadores de la página principal.', estado: 'Completado', responsables: [{ id: 'u5', nombre: 'Maria' }, { id: 'u2', nombre: 'Lucia' }], prioridad: 'Baja' },
+    { id: 'proj-005', titulo: 'Tests automatizados', descripcion: 'Agregar pruebas unitarias y de integración al backend.', estado: 'Pendiente', responsables: [{ id: 'u4', nombre: 'Jesus' }], prioridad: 'Alta' },
+    { id: 'proj-006', titulo: 'Rediseño de logo', descripcion: 'Propuesta de nueva imagen corporativa.', estado: 'Completado', responsables: [{ id: 'u3', nombre: 'Amaia' }], prioridad: 'Media' },
+    { id: 'proj-007', titulo: 'Integración pasarela pago', descripcion: 'Configurar y probar pasarela de pagos.', estado: 'En Progreso', responsables: [{ id: 'u1', nombre: 'Paco' }], prioridad: 'Alta' },
+    { id: 'proj-008', titulo: 'Documentación interna', descripcion: 'Crear guía de despliegue y manual de operaciones.', estado: 'Pendiente', responsables: [{ id: 'u5', nombre: 'Maria' }], prioridad: 'Baja' },
+    { id: 'proj-009', titulo: 'Campaña email', descripcion: 'Diseñar y programar la campaña de email marketing.', estado: 'Pendiente', responsables: [{ id: 'u2', nombre: 'Lucia' }], prioridad: 'Media' },
+    { id: 'proj-010', titulo: 'Mejoras en UI', descripcion: 'Pequeñas mejoras de usabilidad en la app web.', estado: 'En Progreso', responsables: [{ id: 'u3', nombre: 'Amaia' }, { id: 'u1', nombre: 'Paco' }], prioridad: 'Media' }
+];
