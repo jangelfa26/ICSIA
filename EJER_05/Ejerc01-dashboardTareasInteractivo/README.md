@@ -1,4 +1,4 @@
-# 🗂️ Dashboard de Tareas Interactivo
+# Dashboard de Tareas Interactivo
 
 ## Despliegue en Netlify
 => https://dashboard-interactivo-jangelfa26.netlify.app/ 
