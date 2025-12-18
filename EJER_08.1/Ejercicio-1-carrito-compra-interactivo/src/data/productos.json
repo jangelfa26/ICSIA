@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "nombre": "Auriculares Inalámbricos Pro",
+    "precio": 149.99
+  },
+  {
+    "id": 2,
+    "nombre": "Teclado Mecánico RGB",
+    "precio": 119.50
+  },
+  {
+    "id": 3,
+    "nombre": "Monitor Curvo UltraWide 34\"",
+    "precio": 499.00
+  },
+  {
+    "id": 4,
+    "nombre": "Ratón Gaming Ergonómico",
+    "precio": 75.00
+  },
+  {
+    "id": 5,
+    "nombre": "Alfombrilla XL",
+    "precio": 29.99
+  }
+]

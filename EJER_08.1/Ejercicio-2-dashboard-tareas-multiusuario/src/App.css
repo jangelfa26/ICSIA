@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #1c1c1c;
+  font-family: Arial, sans-serif;
+  color: #eaeaea;
+}
+
+.App {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+/* CABECERA */
+.cabecera {
+  background: #2b2b2b;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.cabecera h1 {
+  text-align: center;
+  color: orange;
+  margin-bottom: 15px;
+}
+
+.barra-usuario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+select {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* NUEVA TAREA */
+.nueva-tarea {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.nueva-tarea input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background: #333;
+  color: white;
+}
+
+.nueva-tarea button {
+  padding: 12px 25px;
+  border-radius: 6px;
+  border: none;
+  background: #555;
+  color: white;
+  cursor: pointer;
+}
+
+.nueva-tarea button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* LISTA DE TAREAS */
+h2 {
+  color: orange;
+  margin-bottom: 10px;
+  border-bottom: 2px solid orange;
+  padding-bottom: 5px;
+}
+
+.tarea {
+  background: #3a3a3a;
+  padding: 18px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tarea.completada {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.autor {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-left: 8px;
+}
+
+/* BOTONES */
+.botones {
+  display: flex;
+  gap: 10px;
+}
+
+.boton-completar {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.boton-eliminar {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

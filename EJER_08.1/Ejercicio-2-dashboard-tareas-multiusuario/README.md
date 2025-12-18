@@ -1,0 +1,9 @@
+# Ejercicio 2 – Tareas
+
+## 1. Justificación de Arquitectura: ¿Por qué es una buena práctica separar la autenticación y las tareas en dos contextos distintos en lugar de tener un único GlobalContext con { currentUser, tasks, dispatch }? ¿Qué problema de rendimiento específico previene esta separación en el componente UserInfo?
+
+Es una buena práctica separar la autenticación y las tareas en dos contextos distintos porque cada uno gestiona responsabilidades diferentes. El usuario actual cambia con frecuencia, mientras que las tareas no siempre lo hacen, y si todo estuviera en un único GlobalContext cualquier cambio de usuario provocaría renders innecesarios en componentes que solo dependen de las tareas. Esta separación evita que componentes como UserInfo, que solo necesita el usuario actual, se rendericen cada vez que cambia el estado de las tareas, mejorando el rendimiento y manteniendo el código más ordenado. 
+
+## 2. Depuración y Optimización: Al cambiar de usuario en el <select>, descubres que cada uno de los componentes TaskItem de la lista se vuelve a renderizar, aunque las tareas en sí no han cambiado. Explica la cadena de eventos que provoca este comportamiento y cómo usarías React.memo para solucionarlo. ¿Sería suficiente con envolver TaskItem en memo o necesitarías hacer algo más?
+
+Al cambiar el usuario en el <select>, se actualiza el AuthContext, lo que provoca un nuevo render del componente padre y, por consecuencia, de todos los TaskItem, aunque las tareas no hayan cambiado. Para evitar esto se puede usar React.memo en TaskItem, de forma que solo se vuelva a renderizar si cambian sus props. Sin embargo, no siempre es suficiente solo con envolver el componente en memo, ya que también es necesario asegurarse de que las funciones que se le pasan como props estén memoizadas (por ejemplo con useCallback), para evitar que React las considere diferentes en cada render.  
