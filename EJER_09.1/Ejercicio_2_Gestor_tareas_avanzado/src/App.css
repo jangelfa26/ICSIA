@@ -1,0 +1,148 @@
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Barra de navegación superior (RootLayout) */
+nav {
+  background-color: #007bff;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+  font-size: 1.1rem;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Layout Dashboard (barra lateral) */
+.dashboard-layout {
+  display: flex;
+}
+
+.dashboard-layout nav {
+  width: 200px;
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.dashboard-layout nav a {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.1rem;
+}
+
+.dashboard-layout nav a:hover {
+  background-color: #007bff;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.dashboard-layout .content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Estilos para la lista de tareas */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ul li a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Formulario de nueva tarea */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form input,
+form textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para la página de perfil */
+.profile-page {
+  text-align: center;
+}
+
+.profile-page h1 {
+  margin-bottom: 20px;
+}
+
+/* Estilos para la página de error 404 */
+.not-found {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.not-found h1 {
+  font-size: 2rem;
+  color: #ff4d4d;
+}
