@@ -1,145 +1,195 @@
-/* Estilos generales */
+/* Reset de márgenes y paddings */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Fondo de la aplicación */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f7fa;
+  background-color: #f9f9f9;
   color: #333;
-  padding: 20px;
-}
-
-h1 {
-  color: #333;
-  font-size: 2rem;
-}
-
-p {
-  font-size: 1.1rem;
-  color: #666;
   line-height: 1.6;
+  padding: 0 20px;
 }
 
-/* Barra de navegación superior (RootLayout) */
-nav {
-  background-color: #007bff;
-  padding: 10px;
-  color: white;
-  border-radius: 8px;
+/* Barra de navegación principal */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 10px;
-  font-size: 1.1rem;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Layout Dashboard (barra lateral) */
-.dashboard-layout {
+.navbar ul {
+  list-style-type: none;
   display: flex;
-}
-
-.dashboard-layout nav {
-  width: 200px;
-  background-color: #f4f4f4;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.dashboard-layout nav a {
-  display: block;
-  margin: 10px 0;
-  text-decoration: none;
-  color: #007bff;
-  font-size: 1.1rem;
-}
-
-.dashboard-layout nav a:hover {
-  background-color: #007bff;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.dashboard-layout .content {
-  flex: 1;
-  padding: 20px;
-}
-
-/* Estilos para la lista de tareas */
-ul {
-  list-style: none;
+  justify-content: center;
   padding: 0;
 }
 
-ul li {
+.navbar ul li {
+  margin: 0 20px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.navbar ul li a:hover {
+  color: #007bff;
+}
+
+.navbar ul li a.active {
+  color: #ff5733; /* Resalta el enlace activo */
+  border-bottom: 2px solid #ff5733; /* Subraya el enlace activo */
+}
+
+/* Espacio debajo de la barra de navegación */
+.main-content {
+  margin-top: 60px; /* Espacio para la navbar fija */
+}
+
+/* Panel de tareas */
+.dashboard-container {
+  margin-top: 80px; /* Asegurarse de que la navbar no tape el contenido */
+}
+
+.dashboard-nav {
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  margin: 0 20px;
+  font-size: 18px;
+}
+
+.dashboard-nav a:hover,
+.dashboard-nav a.active {
+  color: #007bff;
+}
+
+/* Contenedor de las páginas */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: white;
-  padding: 15px;
-  margin-bottom: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-ul li a {
+/* Título principal */
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos para las páginas de tareas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li a {
+  color: #333;
+  font-size: 18px;
   text-decoration: none;
+}
+
+li a:hover {
   color: #007bff;
-  font-weight: bold;
 }
 
-ul li a:hover {
-  text-decoration: underline;
-}
-
-/* Formulario de nueva tarea */
+/* Estilos para el formulario de nueva tarea */
 form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form input,
-form textarea {
+form textarea,
+form button {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 form button {
-  padding: 10px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
 form button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 
-/* Estilos para la página de perfil */
-.profile-page {
-  text-align: center;
+/* Detalles de la tarea */
+.task-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.profile-page h1 {
-  margin-bottom: 20px;
+.task-details h2 {
+  color: #333;
+  margin-bottom: 15px;
 }
 
-/* Estilos para la página de error 404 */
+.task-details p {
+  color: #555;
+  font-size: 16px;
+}
+
+.task-details button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-details button:hover {
+  background-color: #c82333;
+}
+
+/* Estilos de la página de error 404 */
 .not-found {
   text-align: center;
-  margin-top: 50px;
+  padding: 50px;
 }
 
 .not-found h1 {

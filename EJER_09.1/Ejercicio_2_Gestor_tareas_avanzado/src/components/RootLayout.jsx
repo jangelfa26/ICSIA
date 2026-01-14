@@ -1,17 +1,13 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const RootLayout = () => {
-  return (
-    <div>
-      <nav>
-        <Link to="/">Inicio</Link>
-        <Link to="/dashboard">Panel de Tareas</Link>
-        <Link to="/profile">Perfil</Link>
-      </nav>
-      <hr />
+const RootLayout = () => (
+  <div className="main-content">
+    <Navbar /> 
+    <div className="page-container">
       <Outlet />
     </div>
-  );
-};
+  </div>
+);
 
 export default RootLayout;
