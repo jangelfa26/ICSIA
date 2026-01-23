@@ -1,0 +1,49 @@
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+
+function CountryDetails({ countries }) {
+  const { countryName } = useParams();
+  const [country, setCountry] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+      .then(response => response.json())
+      .then(data => setCountry(data[0]));
+  }, [countryName]);
+
+  if (!country) {
+    return <p>Cargando...</p>;
+  }
+
+  const getBorderCountryName = (borderCode) => {
+    const borderCountry = countries.find(c => c.cca3 === borderCode);
+    return borderCountry ? borderCountry.name.common : borderCode;
+  };
+
+  return (
+    <div className="country-details">
+      <img src={country.flags.svg} alt={country.name.common} />
+      <h2>{country.name.official}</h2>
+      <p><strong>Capital:</strong> {country.capital}</p>
+      <p><strong>Población:</strong> {country.population.toLocaleString()}</p>
+      <p><strong>Continente:</strong> {country.region}</p>
+      <p><strong>Subregión:</strong> {country.subregion}</p>
+      <p><strong>Idiomas:</strong> {Object.values(country.languages).join(', ')}</p>
+
+      <div className="borders">
+        <h3>Países Fronterizos:</h3><br />
+        {country.borders ? (
+          country.borders.map((border) => (
+            <Link key={border} to={`/country/${getBorderCountryName(border).toLowerCase()}`}>
+              {getBorderCountryName(border)}
+            </Link>
+          ))
+        ) : (
+          <p>No tiene fronteras</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default CountryDetails;

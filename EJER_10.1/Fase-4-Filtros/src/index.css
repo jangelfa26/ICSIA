@@ -1,0 +1,174 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+}
+
+ aside .sidebar {
+  display: block;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #444;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  gap: 40px;
+  padding: 20px;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; 
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;  
+}
+
+li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #e2e2e2;
+}
+
+li img {
+  width: 35px;
+  height: auto;
+  margin-right: 15px;
+}
+
+li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.country-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.country-details img {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.country-details p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.country-details .borders {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  
+}
+
+.borders a {
+  text-decoration: none;
+  color: #4a90e2;
+  margin-right: 10px;
+  font-weight: bold;
+  padding: 8px;
+  background-color: #f4f7fc;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.borders a:hover {
+  background-color: #e2e7f1;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 20px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.sort-options {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sort-options label {
+  font-weight: bold;
+}
+
+.sort-options select {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
