@@ -10,8 +10,23 @@ export default function NuevaCita() {
   const [id_medico, setIdMedico] = useState("");
 
   useEffect(() => {
-    fetch("/api/pacientes").then(r => r.json()).then(setPacientes);
-    fetch("/api/medicos").then(r => r.json()).then(setMedicos);
+    const cargar = async () => {
+      try {
+        const [pRes, mRes] = await Promise.all([
+          fetch("/api/pacientes"),
+          fetch("/api/medicos"),
+        ]);
+
+        if (!pRes.ok || !mRes.ok) throw new Error("Error cargando datos");
+
+        setPacientes(await pRes.json());
+        setMedicos(await mRes.json());
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    cargar();
   }, []);
 
   const crear = async () => {
@@ -19,21 +34,28 @@ export default function NuevaCita() {
       return alert("Faltan datos");
     }
 
-    await fetch("/api/citas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        motivo,
-        fecha,
-        estado: "Programada",
-        id_paciente,
-        id_medico,
-      }),
-    });
+    try {
+      const res = await fetch("/api/citas", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          motivo,
+          fecha,
+          estado: "Programada",
+          id_paciente: Number(id_paciente),
+          id_medico: Number(id_medico),
+        }),
+      });
 
-    window.location.href = "/citas";
+      if (!res.ok) throw new Error("Error creando cita");
+
+      window.location.href = "/citas";
+    } catch (err) {
+      console.error(err);
+      alert("Error al crear la cita");
+    }
   };
 
   return (

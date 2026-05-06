@@ -19,6 +19,8 @@ export default function DetalleCita() {
           fetch("/api/pacientes"),
           fetch("/api/medicos"),
         ]);
+        
+        if (!resCitas.ok) throw new Error("Error cargando citas");
 
         const citas = await resCitas.json();
         const pacientes = await resPacientes.json();

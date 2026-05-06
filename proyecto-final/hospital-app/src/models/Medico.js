@@ -10,7 +10,7 @@ export const Medico = sequelize.define("Medico", {
     type: DataTypes.STRING,
     allowNull: false
   },  
-  imagen: DataTypes.STRING
+  foto: DataTypes.STRING
 }, {
   tableName: "medicos",
   timestamps: true

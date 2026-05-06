@@ -9,18 +9,24 @@ export default function EditarPaciente() {
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
 
+  const emailValido = validarEmail(email) || email === "";
+
   useEffect(() => {
     if (!id) return;
 
     const cargar = async () => {
-      const res = await fetch("/api/pacientes");
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/pacientes");
+        const data = await res.json();
 
-      const p = data.find(x => x.id == id);
-      if (p) {
-        setNombre(p.nombre || "");
-        setApellido(p.apellido || "");
-        setEmail(p.email || "");
+        const p = data.find(x => x.id == id);
+        if (p) {
+          setNombre(p.nombre);
+          setApellido(p.apellido || "");
+          setEmail(p.email || "");
+        }
+      } catch (err) {
+        console.error("Error cargando paciente:", err);
       }
     };
 
@@ -28,44 +34,75 @@ export default function EditarPaciente() {
   }, [id]);
 
   const guardar = async () => {
-    await fetch(`/api/pacientes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nombre,
-        apellido,
-        email
-      }),
-    });
+    if (!nombre || !apellido) {
+      return alert("Nombre y apellido son obligatorios");
+    }
 
-    window.location.href = "/pacientes";
+    if (email && !validarEmail(email)) {
+      return alert("Email inválido");
+    }
+
+    try {
+      await fetch(`/api/pacientes/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nombre, apellido, email }),
+      });
+
+      window.location.href = "/pacientes";
+    } catch (err) {
+      console.error("Error actualizando:", err);
+      alert("Error al guardar");
+    }
   };
 
   return (
     <div className="container">
       <h1>Editar paciente</h1>
 
-      <input
-        placeholder="Nombre"
-        value={nombre}
-        onChange={e => setNombre(e.target.value)}
-      />
+      <div className="form-group">
+        <label htmlFor="nombre">Nombre</label>
+        <input
+          id="nombre"
+          name="nombre"
+          value={nombre}
+          onChange={e => setNombre(e.target.value)}
+        />
+      </div>
 
-      <input
-        placeholder="Apellido"
-        value={apellido}
-        onChange={e => setApellido(e.target.value)}
-      />
+      <div className="form-group">
+        <label htmlFor="apellido">Apellido</label>
+        <input
+          id="apellido"
+          name="apellido"
+          value={apellido}
+          onChange={e => setApellido(e.target.value)}
+        />
+      </div>
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
 
-      <button onClick={guardar}>Guardar</button>
+        {!emailValido && (
+          <p className="error">Email inválido</p>
+        )}
+      </div>
+
+      <button onClick={guardar} disabled={!emailValido}>
+        Guardar
+      </button>
     </div>
   );
+}
+
+function validarEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
