@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export default function DetallePaciente() {
   const { id } = useParams();
@@ -37,7 +38,7 @@ export default function DetallePaciente() {
     cargar();
   }, [id]);
 
-  if (!paciente) return <p>Cargando...</p>;
+  if (!paciente) return   notFound();
 
   return (
     <div className="container">

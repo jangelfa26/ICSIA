@@ -6,40 +6,112 @@ export default function DetalleHistorial() {
   const params = useParams();
 
   const [historial, setHistorial] = useState(null);
+  const [paciente, setPaciente] = useState(null);
 
   useEffect(() => {
-    fetch("/api/historial")
-      .then(r => r.json())
-      .then(data => {
-        const h = data.find(x => x._id === params.id);
+
+    const cargar = async () => {
+      try {
+
+        const [historialRes, pacientesRes] = await Promise.all([
+          fetch("/api/historial"),
+          fetch("/api/pacientes"),
+        ]);
+
+        const historialData = await historialRes.json();
+        const pacientesData = await pacientesRes.json();
+
+        const h = historialData.find(
+          x => x._id === params.id
+        );
+
         setHistorial(h);
-      });
+
+        if (h) {
+          const pacienteEncontrado = pacientesData.find(
+            p => Number(p.id) === Number(h.id_paciente)
+          );
+
+          setPaciente(pacienteEncontrado);
+        }
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    cargar();
+
   }, [params.id]);
 
-  if (!historial) return "Cargando...";
+  if (!historial) {
+    return <p>Cargando...</p>;
+  }
 
   return (
-    <div className="container">
-      <h1>Detalle historial clínico</h1>
+    <div className="detalle-historial">
 
-      <p><b>Diagnóstico:</b> {historial.diagnostico}</p>
+      <div className="detalle-card">
 
-      {historial.observaciones && (
-        <p><b>Observaciones:</b> {historial.observaciones}</p>
-      )}
+        <div className="detalle-top">
+          <div>
+            <h1>{historial.diagnostico}</h1>
 
-      <p><b>Paciente ID:</b> {historial.id_paciente}</p>
+            <p>
+              {new Date(historial.fecha).toLocaleString()}
+            </p>
+          </div>
 
-      {historial.fecha && (
-        <p>
-          <b>Fecha:</b>{" "}
-          {new Date(historial.fecha).toLocaleString()}
-        </p>
-      )}
+          <a href={`/historial/${historial._id}/editar`}>
+            <button>Editar</button>
+          </a>
+        </div>
 
-      <a href={`/historial/editar/${historial._id}`}>
-        Editar
-      </a>
+        <div className="detalle-section">
+          <h3>Paciente</h3>
+
+          {paciente ? (
+            <a href={`/pacientes/${paciente.id}`}>
+              {paciente.nombre} {paciente.apellido}
+            </a>
+          ) : (
+            <span>Paciente #{historial.id_paciente}</span>
+          )}
+        </div>
+
+        <div className="detalle-section">
+          <h3>Observaciones</h3>
+
+          <p>
+            {historial.observaciones || "Sin observaciones"}
+          </p>
+        </div>
+
+        <div className="detalle-section">
+          <h3>Receta</h3>
+
+          {historial.receta?.length > 0 ? (
+            historial.receta.map((r, index) => (
+              <div
+                key={index}
+                className="medicamento-card"
+              >
+                <a href={`/medicamentos/${r.id_medicamento}`}>
+                  <strong>{r.nombre}</strong>
+                </a>
+
+                <p>Dosis: {r.dosis}</p>
+                <p>Frecuencia: {r.frecuencia}</p>
+                <p>Duración: {r.duracion}</p>
+              </div>
+            ))
+          ) : (
+            <p>Sin medicamentos</p>
+          )}
+
+        </div>
+
+      </div>
     </div>
   );
 }

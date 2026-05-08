@@ -4,9 +4,16 @@ import { useEffect, useState } from "react";
 export default function Medicos() {
   const [data, setData] = useState([]);
   const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
   const [especialidad, setEspecialidad] = useState("");
   const [foto, setFoto] = useState("");
   const [busqueda, setBusqueda] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+
+  const emailValido = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
 
   const cargar = async () => {
     try {
@@ -24,16 +31,22 @@ export default function Medicos() {
   }, []);
 
   const crear = async () => {
-    if (!nombre || !especialidad) {
+
+    if (!nombre || !especialidad || !email) {
       return alert("Faltan datos");
     }
 
+    if (errorEmail) {
+      return alert("Corrige el email");
+    }
+
+    setErrorEmail("");
     await fetch("/api/medicos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ nombre, especialidad, foto }),
+      body: JSON.stringify({ nombre, email, especialidad, foto }),
     });
 
     setNombre("");
@@ -52,10 +65,13 @@ export default function Medicos() {
     cargar();
   };
 
+
+
   const filtrados = data.filter(m =>
     (m.nombre || "").toLowerCase().includes(busqueda.toLowerCase()) ||
     (m.especialidad || "").toLowerCase().includes(busqueda.toLowerCase())
   );
+
 
   return (
     <div className="container">
@@ -73,6 +89,42 @@ export default function Medicos() {
             value={nombre}
             onChange={e => setNombre(e.target.value)}
           />
+          <br></br>
+          <label>Email</label><br />
+
+          <input
+            type="email"
+            placeholder="correo@hospital.com"
+            value={email}
+            onChange={(e) => {
+
+              const valor = e.target.value;
+
+              setEmail(valor);
+
+              if (
+                valor &&
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)
+              ) {
+                setErrorEmail("Formato de email inválido");
+              } else {
+                setErrorEmail("");
+              }
+
+            }}
+            style={{
+              border: errorEmail
+                ? "2px solid red"
+                : "1px solid #ccc"
+            }}
+          />
+
+          {errorEmail && (
+            <p className="error">
+              {errorEmail}
+            </p>
+          )}
+
           <br></br>
           <label>Especialidad</label> <br></br>
           <input

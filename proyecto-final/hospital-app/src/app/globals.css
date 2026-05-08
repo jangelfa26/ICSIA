@@ -1,80 +1,763 @@
 body {
   margin: 0;
-  font-family: Arial;
-  background: #0f172a;
-  color: #e2e8f0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
 }
+
+/* NAV */
 
 .nav {
   display: flex;
   gap: 15px;
-  padding: 15px;
-  background: #1e293b;
+  padding: 15px 25px;
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
 }
 
 .nav a {
   color: white;
   text-decoration: none;
+  font-weight: 500;
 }
+
+.nav a:hover {
+  opacity: 0.8;
+}
+
+/* GENERAL */
 
 .container {
-  padding: 20px;
+  padding: 25px;
 }
 
-.card {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 10px 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-button {
-  background: #3b82f6;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #2563eb;
-}
-
-input, select {
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+label,
+td,
+th,
+div {
+  color: inherit;
 }
 
 h1 {
-  color: #60a5fa;
+  color: #111827;
 }
 
-.acciones {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+a {
+  color: #2563eb;
+  text-decoration: none;
 }
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* TARJETAS */
+
+.card {
+  background: white;
+  color: #111827;
+  padding: 18px;
+  border-radius: 14px;
+  margin: 10px 0;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea {
+  padding: 10px 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #111827;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* BOTONES */
+
+button {
+  background: #2563eb;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+/* BOTONES GENERICOS */
 
 .btn {
-  padding: 6px 12px;
-  background: #0070f3;
+  padding: 8px 14px;
+  background: #2563eb;
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
   border: none;
   cursor: pointer;
 }
 
 .btn.danger {
-  background: #e53935;
+  background: #dc2626;
 }
 
+/* ERRORES */
+
 .error {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 4px;
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* TABLAS */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f9fafb;
+  text-align: left;
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* HISTORIAL */
+
+.historial-container {
+  padding: 30px;
+}
+
+.historial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.historial-header h1 {
+  margin: 0;
+  font-size: 38px;
+}
+
+.historial-header p {
+  color: #6b7280;
+}
+
+.btn-nuevo {
+  background: #2563eb;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.historial-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.historial-filtros input,
+.historial-filtros select {
+  min-width: 220px;
+}
+
+.historial-tabla {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.tabla-header,
+.tabla-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1fr 2fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  align-items: start;
+}
+
+.tabla-header {
+  background: #f9fafb;
+  font-weight: bold;
+}
+
+.tabla-row {
+  border-top: 1px solid #f3f4f6;
+}
+
+/* BADGES */
+
+.badge-diagnostico {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* RECETAS */
+
+.receta-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.texto-gris {
+  color: #6b7280;
+}
+
+/* ACCIONES */
+
+.acciones {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-accion {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.danger {
+  color: #dc2626;
+}
+
+/* DETALLE */
+
+.detalle-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.detalle-card {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+}
+
+.detalle-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detalle-section {
+  margin-top: 30px;
+}
+
+.receta-card,
+.medicamento-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+/* FORMULARIOS */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 750px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+}
+
+.form-card label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* MEDICAMENTOS */
+
+.medicamentos-container {
+  padding: 30px;
+}
+
+.medicamentos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.medicamentos-header h1 {
+  margin: 0;
+  color: #111827;
+}
+
+.medicamentos-header p {
+  color: #6b7280;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.medicamentos-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.medicamentos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.medicamento-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.medicamento-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.med-id {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.med-desc {
+  margin-top: 15px;
+  color: #4b5563;
+  min-height: 50px;
+}
+
+.med-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.med-info span {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.med-info strong {
+  font-size: 18px;
+}
+
+/* STOCK */
+
+.stock-ok,
+.stock-low,
+.stock-empty {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stock-ok {
+  background: #16a34a;
+}
+
+.stock-low {
+  background: #d97706;
+}
+
+.stock-empty {
+  background: #dc2626;
+}
+
+/* MED ACTIONS */
+
+.med-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-view,
+.btn-edit,
+.btn-delete {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-view {
+  background: #2563eb;
+}
+
+.btn-edit {
+  background: #f59e0b;
+}
+
+.btn-delete {
+  background: #dc2626;
+}
+
+.citasMedico {
+  padding: "12px";
+  border-bottom: "1px solid #eee";
+  cursor: "pointer";
+  display: "grid";
+  grid-template-columns: "2fr 2fr 1fr";
+  gap: "10px";
+}
+
+.citasMedico:hover {
+  background-color: rgba(185, 181, 181, 0.205);
+}
+
+.container>table:nth-child(2)>tbody:nth-child(2)>tr>td>span {
+  color: white;
+}
+
+.botones {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.dashboard-container {
+  padding: 30px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  color: #111827;
+}
+
+.dashboard-header p {
+  color: #6b7280;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.dashboard-card span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.dashboard-card h2 {
+  margin-top: 10px;
+  font-size: 36px;
+  color: #111827;
+}
+
+.dashboard-card.warning {
+  border-left: 5px solid #f59e0b;
+}
+
+.dashboard-section {
+  margin-bottom: 30px;
+}
+
+.alert-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-card {
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.alert-card.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.alert-card.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.alert-card.info {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.dashboard-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  color: #111827;
+}
+
+.panel-header a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.activity-item,
+.consulta-item,
+.historial-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.activity-item:first-child,
+.consulta-item:first-child,
+.historial-item:first-child {
+  border-top: none;
+}
+
+.activity-item p,
+.consulta-item p,
+.historial-item p {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.estado,
+.consulta-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.estado.programada,
+.consulta-badge.disponible {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.estado.completada,
+.consulta-badge.asignada {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado.cancelada,
+.consulta-badge.mantenimiento {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.historial-panel {
+  margin-bottom: 40px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn-cancel {
+  background: #6b7280;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #4b5563;
+}
+
+.error-page,
+.notfound-page {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.error-card,
+.notfound-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.error-card h1,
+.notfound-card h1 {
+  margin: 0;
+  color: #dc2626;
+  font-size: 48px;
+}
+
+.notfound-card h1 {
+  font-size: 72px;
+}
+
+.error-card p,
+.notfound-card p {
+  margin-top: 15px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.error-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+  max-width: 700px;
+  width: 100%;
+}
+
+.error-card h1 {
+  margin-top: 0;
+  color: #dc2626;
+}
+
+.error-card p {
+  color: #555;
+}
+
+.error-card pre {
+  background: #f3f4f6;
+  padding: 15px;
+  border-radius: 10px;
+  overflow: auto;
+  font-size: 13px;
 }

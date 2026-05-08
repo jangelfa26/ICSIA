@@ -1,36 +1,75 @@
 import { Medicamento } from "@/models/Medicamento";
-import { initDB } from "@/lib/initDB";
+import { conectarMySQL } from "@/lib/mysql";
 
-export async function PUT(req, { params }) {
-  await initDB();
+export async function GET(req, context) {
+  try {
+    await conectarMySQL();
 
-  const data = await req.json();
+    const { id } = await context.params;
 
-  await Medicamento.update(data, {
-    where: { id: params.id }
-  });
+    const medicamento = await Medicamento.findByPk(id);
 
-  return Response.json({ ok: true });
-}
+    if (!medicamento) {
+      return Response.json(
+        { error: "Medicamento no encontrado" },
+        { status: 404 }
+      );
+    }
 
-export async function GET(req, { params }) {
-  await initDB();
+    return Response.json(medicamento);
 
-  const medicamento = await Medicamento.findByPk(params.id);
+  } catch (error) {
+    console.error("Error GET medicamento:", error);
 
-  if (!medicamento) {
-    return Response.json({ error: "No encontrado" }, { status: 404 });
+    return Response.json(
+      { error: "Error obteniendo medicamento" },
+      { status: 500 }
+    );
   }
-
-  return Response.json(medicamento);
 }
 
-export async function DELETE(req, { params }) {
-  await initDB();
+export async function PUT(req, context) {
+  try {
+    await conectarMySQL();
 
-  await Medicamento.destroy({
-    where: { id: params.id }
-  });
+    const { id } = await context.params;
 
-  return Response.json({ ok: true });
+    const data = await req.json();
+
+    await Medicamento.update(data, {
+      where: { id }
+    });
+
+    return Response.json({ ok: true });
+
+  } catch (error) {
+    console.error("Error PUT medicamento:", error);
+
+    return Response.json(
+      { error: "Error actualizando medicamento" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req, context) {
+  try {
+    await conectarMySQL();
+
+    const { id } = await context.params;
+
+    await Medicamento.destroy({
+      where: { id }
+    });
+
+    return Response.json({ ok: true });
+
+  } catch (error) {
+    console.error("Error DELETE medicamento:", error);
+
+    return Response.json(
+      { error: "Error eliminando medicamento" },
+      { status: 500 }
+    );
+  }
 }

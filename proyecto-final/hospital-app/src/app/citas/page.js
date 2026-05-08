@@ -15,9 +15,23 @@ export default function Citas() {
       ]);
 
       const citas = await resCitas.json();
+
+      const ahora = new Date();
+      const citasActualizadas = citas.map(c => {
+        if (
+          c.estado === "Programada" &&
+          new Date(c.fecha) < ahora
+        ) {
+          return { ...c, estado: "Completada" };
+        }
+
+        return c;
+      });
+
+      setData(citasActualizadas);
       const pacientesData = await resPacientes.json();
 
-      setData(citas);
+
       setPacientes(pacientesData);
     } catch (err) {
       console.error(err);
@@ -108,17 +122,37 @@ export default function Citas() {
               justifyContent: "space-between",
               alignItems: "center"
             }}>
-              <span style={{
-                background: getColorEstado(c.estado),
-                color: "#ffffff",
-                padding: "3px 10px",
-                borderRadius: 20,
-                fontSize: 12
-              }}>
-                {c.estado}
-              </span>
+              <select
+                value={c.estado}
+                onChange={async (e) => {
+                  const nuevoEstado = e.target.value;
 
-              <span style={{ fontSize: 12, color: "#000000" }}>
+                  await fetch(`/api/citas/${c.id}`, {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ estado: nuevoEstado }),
+                  });
+
+                  cargar();
+                }}
+                style={{
+                  background: getColorEstado(c.estado),
+                  color: "#fff",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: 20,
+                  fontSize: 12,
+                  cursor: "pointer"
+                }}
+              >
+                <option>Programada</option>
+                <option>Completada</option>
+                <option>Cancelada</option>
+              </select>
+
+              <span style={{ fontSize: 12, color: "#000" }}>
                 {formatearFecha(c.fecha)}
               </span>
             </div>
@@ -137,7 +171,6 @@ export default function Citas() {
               <a href={`/citas/${c.id}`}>Ver</a>
 
               <div>
-
                 <button onClick={() => window.location.href = `/citas/${c.id}/editar`}>
                   ✏️
                 </button>
@@ -145,7 +178,7 @@ export default function Citas() {
                 <button
                   onClick={() => borrar(c.id)}
                   style={{
-                    marginLeft: 10,
+                    marginLeft: 10
                   }}
                 >
                   🗑️

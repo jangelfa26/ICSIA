@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NuevaCita() {
+  const router = useRouter();
   const [motivo, setMotivo] = useState("");
   const [fecha, setFecha] = useState("");
   const [pacientes, setPacientes] = useState([]);
@@ -42,7 +44,7 @@ export default function NuevaCita() {
         },
         body: JSON.stringify({
           motivo,
-          fecha,
+          fecha: new Date(fecha).toISOString(),
           estado: "Programada",
           id_paciente: Number(id_paciente),
           id_medico: Number(id_medico),
@@ -61,19 +63,21 @@ export default function NuevaCita() {
   return (
     <div className="container">
       <h1>Nueva cita</h1>
-
+      <label>Motivo</label>
       <input
         placeholder="Motivo"
         value={motivo}
         onChange={e => setMotivo(e.target.value)}
       />
-
+      <br></br>
+      <label>Fecha y hora</label>
       <input
         type="datetime-local"
         value={fecha}
         onChange={e => setFecha(e.target.value)}
       />
-
+      <br></br>
+      <label>Paciente</label>
       <select value={id_paciente} onChange={e => setIdPaciente(e.target.value)}>
         <option value="">Paciente</option>
         {pacientes.map(p => (
@@ -82,7 +86,8 @@ export default function NuevaCita() {
           </option>
         ))}
       </select>
-
+      <br></br>
+      <label>Médico</label>
       <select value={id_medico} onChange={e => setIdMedico(e.target.value)}>
         <option value="">Médico</option>
         {medicos.map(m => (
@@ -91,8 +96,22 @@ export default function NuevaCita() {
           </option>
         ))}
       </select>
+      <br></br>
+      <div className="form-actions">
 
-      <button onClick={crear}>Crear</button>
+        <button onClick={crear}>
+          Crear
+        </button>
+
+        <button
+          type="button"
+          className="btn-cancel"
+          onClick={() => router.push("/citas")}
+        >
+          Cancelar
+        </button>
+
+      </div>
     </div>
   );
 }

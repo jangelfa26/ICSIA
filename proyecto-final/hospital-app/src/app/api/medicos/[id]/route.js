@@ -1,41 +1,113 @@
 import { Medico } from "@/models/Medico";
 import { initDB } from "@/lib/initDB";
 
-export async function GET(req, context) {
-  await initDB();
+function validarMedico(data) {
 
-  const { id } = await context.params;
-
-  const medico = await Medico.findByPk(id);
-
-  if (!medico) {
-    return Response.json({ error: "No encontrado" }, { status: 404 });
+  if (!data.nombre?.trim()) {
+    return "Nombre obligatorio";
   }
 
-  return Response.json(medico);
+  if (!data.especialidad?.trim()) {
+    return "Especialidad obligatoria";
+  }
+
+  if (
+    !data.email ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)
+  ) {
+    return "Email inválido";
+  }
+
+  return null;
+}
+
+export async function GET(req, context) {
+
+  try {
+
+    await initDB();
+
+    const { id } = await context.params;
+
+    const medico = await Medico.findByPk(id);
+
+    if (!medico) {
+      return Response.json(
+        { error: "No encontrado" },
+        { status: 404 }
+      );
+    }
+
+    return Response.json(medico);
+
+  } catch (error) {
+
+    console.error(error);
+
+    return Response.json(
+      { error: "Error obteniendo médico" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function PUT(req, context) {
-  await initDB();
 
-  const { id } = await context.params;
-  const data = await req.json();
+  try {
 
-  await Medico.update(data, {
-    where: { id }
-  });
+    await initDB();
 
-  return Response.json({ ok: true });
+    const { id } = await context.params;
+
+    const data = await req.json();
+
+    const error = validarMedico(data);
+
+    if (error) {
+      return Response.json(
+        { error },
+        { status: 400 }
+      );
+    }
+
+    await Medico.update(data, {
+      where: { id }
+    });
+
+    return Response.json({ ok: true });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return Response.json(
+      { error: "Error actualizando médico" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function DELETE(req, context) {
-  await initDB();
 
-  const { id } = await context.params;
+  try {
 
-  await Medico.destroy({
-    where: { id }
-  });
+    await initDB();
 
-  return Response.json({ ok: true });
+    const { id } = await context.params;
+
+    await Medico.destroy({
+      where: { id }
+    });
+
+    return Response.json({ ok: true });
+
+  } catch (error) {
+
+    console.error(error);
+
+    return Response.json(
+      { error: "Error eliminando médico" },
+      { status: 500 }
+    );
+  }
 }

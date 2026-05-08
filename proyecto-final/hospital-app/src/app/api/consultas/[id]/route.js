@@ -1,14 +1,13 @@
-import { Cita } from "@/models/Cita";
+import { Consulta } from "@/models/Consulta";
 import { conectarMySQL } from "@/lib/mysql";
 
 export async function PUT(req, context) {
   const { id } = await context.params;
 
   await conectarMySQL();
-
   const data = await req.json();
 
-  await Cita.update(data, {
+  await Consulta.update(data, {
     where: { id },
   });
 
@@ -20,7 +19,7 @@ export async function DELETE(req, context) {
 
   await conectarMySQL();
 
-  await Cita.destroy({
+  await Consulta.destroy({
     where: { id },
   });
 

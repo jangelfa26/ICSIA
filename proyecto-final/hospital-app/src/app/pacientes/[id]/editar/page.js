@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function EditarPaciente() {
   const { id } = useParams();
@@ -8,7 +9,7 @@ export default function EditarPaciente() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
   const emailValido = validarEmail(email) || email === "";
 
   useEffect(() => {
@@ -96,9 +97,21 @@ export default function EditarPaciente() {
         )}
       </div>
 
-      <button onClick={guardar} disabled={!emailValido}>
-        Guardar
-      </button>
+      <div className="form-actions">
+
+        <button onClick={guardar} disabled={!emailValido}>
+          Guardar
+        </button>
+
+        <button
+          type="button"
+          className="btn-cancel"
+          onClick={() => router.push("/pacientes")}
+        >
+          Cancelar
+        </button>
+
+      </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function DetalleCita() {
           fetch("/api/pacientes"),
           fetch("/api/medicos"),
         ]);
-        
+
         if (!resCitas.ok) throw new Error("Error cargando citas");
 
         const citas = await resCitas.json();
@@ -45,31 +45,47 @@ export default function DetalleCita() {
 
   return (
     <div className="container">
-      <h1>Detalle cita</h1>
+      <div style={{
+        maxWidth: 600,
+        margin: "auto",
+        padding: 20,
+        border: "1px solid #ddd",
+        borderRadius: 12,
+        background: "#fff",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+        color: "#000"
+      }}>
+        <h2 style={{ marginBottom: 10 }}>{cita.motivo}</h2>
 
-      <p><b>Motivo:</b> {cita.motivo}</p>
-      <p><b>Estado:</b> {cita.estado}</p>
-      <p><b>Fecha:</b> {new Date(cita.fecha).toLocaleString()}</p>
+        <p><b>Estado:</b> {cita.estado}</p>
+        <p><b>Fecha:</b> {new Date(cita.fecha).toLocaleString()}</p>
 
-      {paciente && (
-        <p>
-          <b>Paciente:</b>{" "}
-          <a href={`/pacientes/${paciente.id}`}>
-            {paciente.nombre}
+        <hr />
+
+        {paciente && (
+          <p>
+            👤 <b>Paciente:</b>{" "}
+            <a href={`/pacientes/${paciente.id}`}>
+              {paciente.nombre}
+            </a>
+          </p>
+        )}
+
+        {medico && (
+          <p>
+            👨‍⚕️ <b>Médico:</b>{" "}
+            <a href={`/medicos/${medico.id}`}>
+              {medico.nombre}
+            </a>
+          </p>
+        )}
+
+        <div style={{ marginTop: 20 }}>
+          <a href={`/citas/${cita.id}/editar`}>
+            <button>Editar</button>
           </a>
-        </p>
-      )}
-
-      {medico && (
-        <p>
-          <b>Médico:</b>{" "}
-          <a href={`/medicos/${medico.id}`}>
-            {medico.nombre}
-          </a>
-        </p>
-      )}
-
-      <a href={`/citas/${cita.id}/editar`}>Editar</a>
+        </div>
+      </div>
     </div>
   );
 }

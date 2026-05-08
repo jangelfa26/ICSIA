@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function EditarMedicamento() {
   const params = useParams();
@@ -9,6 +10,7 @@ export default function EditarMedicamento() {
   const [descripcion, setDescripcion] = useState("");
   const [stock, setStock] = useState("");
   const [precio, setPrecio] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/medicamentos")
@@ -43,32 +45,67 @@ export default function EditarMedicamento() {
   };
 
   return (
-    <div className="container">
-      <h1>Editar medicamento</h1>
+    <div className="form-container">
 
-      <input
-        value={nombre}
-        onChange={e => setNombre(e.target.value)}
-      />
+      <div className="form-card">
 
-      <textarea
-        value={descripcion}
-        onChange={e => setDescripcion(e.target.value)}
-      />
+        <h1>Editar medicamento</h1>
 
-      <input
-        type="number"
-        value={stock}
-        onChange={e => setStock(e.target.value)}
-      />
+        <label>Nombre</label>
 
-      <input
-        type="number"
-        value={precio}
-        onChange={e => setPrecio(e.target.value)}
-      />
+        <input
+          type="text"
+          value={nombre}
+          onChange={e => setNombre(e.target.value)}
+          placeholder="Ej: Paracetamol"
+        />
 
-      <button onClick={guardar}>Guardar</button>
+        <label>Descripción</label>
+
+        <textarea
+          value={descripcion}
+          onChange={e => setDescripcion(e.target.value)}
+          placeholder="Descripción del medicamento"
+          rows={5}
+        />
+
+        <label>Stock</label>
+
+        <input
+          type="number"
+          value={stock}
+          onChange={e => setStock(e.target.value)}
+          placeholder="Cantidad disponible"
+        />
+
+        <label>Precio (€)</label>
+
+        <input
+          type="number"
+          step="0.01"
+          value={precio}
+          onChange={e => setPrecio(e.target.value)}
+          placeholder="0.00"
+        />
+
+        <div className="form-actions">
+
+          <button onClick={guardar}>
+            Guardar
+          </button>
+
+          <button
+            type="button"
+            className="btn-cancel"
+            onClick={() => router.push("/medicamentos")}
+          >
+            Cancelar
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NuevoPaciente() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
   const emailValido = validarEmail(email) || email === "";
 
   const crear = async () => {
@@ -63,8 +64,22 @@ export default function NuevoPaciente() {
       {!emailValido && (
         <p className="error">Email inválido</p>
       )}
+      <br></br>
+      <div className="form-actions">
 
-      <button onClick={crear}>Guardar</button>
+        <button onClick={crear}>
+          Crear
+        </button>
+
+        <button
+          type="button"
+          className="btn-cancel"
+          onClick={() => router.push("/pacientes")}
+        >
+          Cancelar
+        </button>
+
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export default function DetalleMedico() {
   const { id } = useParams();
@@ -40,7 +41,9 @@ export default function DetalleMedico() {
     cargar();
   }, [id]);
 
-  if (!medico) return <p>Cargando...</p>;
+  if (!medico) {
+    notFound();
+  }
 
   const formatearFecha = (fecha) => {
     return new Date(fecha).toLocaleDateString();
@@ -55,14 +58,13 @@ export default function DetalleMedico() {
     <div style={{ display: "flex", justifyContent: "center", marginTop: 30 }}>
       <div style={{
         width: "800px",
-        background: "#000000",
         padding: 25,
         borderRadius: 10,
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
       }}>
         <a href="/medicos">← Volver a médicos</a>
 
-        {/* PERFIL */}
+
         <div style={{ display: "flex", gap: 20, marginTop: 20 }}>
           <img
             src={medico.foto || "https://via.placeholder.com/100"}
@@ -83,7 +85,6 @@ export default function DetalleMedico() {
           </div>
         </div>
 
-        {/* CITAS */}
         <h3 style={{ marginTop: 30 }}>Citas asignadas</h3>
 
         <div style={{ marginTop: 10 }}>
@@ -91,6 +92,7 @@ export default function DetalleMedico() {
             <div
               key={c.id}
               onClick={() => window.location.href = `/citas/${c.id}`}
+              className="citasMedico"
               style={{
                 padding: "12px",
                 borderBottom: "1px solid #eee",
