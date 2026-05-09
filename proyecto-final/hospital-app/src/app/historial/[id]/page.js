@@ -72,7 +72,7 @@ export default function DetalleHistorial() {
 
           {paciente ? (
             <a href={`/pacientes/${paciente.id}`}>
-              {paciente.nombre} {paciente.apellido}
+              {paciente.id} {paciente.nombre} {paciente.apellido} 
             </a>
           ) : (
             <span>Paciente #{historial.id_paciente}</span>

@@ -13,9 +13,7 @@ export async function initDB() {
   try {
     await sequelize.authenticate();
 
-    await sequelize.sync({
-      alter: true
-    });
+    await sequelize.sync();
 
     inicializada = true;
 

@@ -1,25 +1,40 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 
 export default function DetalleMedico() {
+
   const { id } = useParams();
 
   const [medico, setMedico] = useState(null);
   const [citas, setCitas] = useState([]);
   const [pacientes, setPacientes] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
+
     if (!id) return;
 
     const cargar = async () => {
+
       try {
-        const [resMedico, resCitas, resPacientes] = await Promise.all([
+
+        const [
+          resMedico,
+          resCitas,
+          resPacientes
+        ] = await Promise.all([
           fetch(`/api/medicos/${id}`),
           fetch("/api/citas"),
           fetch("/api/pacientes"),
         ]);
+
+        if (!resMedico.ok) {
+          setMedico(undefined);
+          return;
+        }
 
         const medicoData = await resMedico.json();
         const citasData = await resCitas.json();
@@ -33,15 +48,28 @@ export default function DetalleMedico() {
         );
 
         setCitas(citasFiltradas);
+
       } catch (err) {
+
         console.error(err);
+
+        setMedico(undefined);
+
+      } finally {
+
+        setCargando(false);
       }
     };
 
     cargar();
+
   }, [id]);
 
-  if (!medico) {
+  if (cargando) {
+    return <p>Cargando...</p>;
+  }
+
+  if (medico === undefined) {
     notFound();
   }
 
@@ -50,8 +78,14 @@ export default function DetalleMedico() {
   };
 
   const getPaciente = (idPaciente) => {
-    const p = pacientes.find(x => x.id == idPaciente);
-    return p ? `${p.id} - ${p.nombre}` : `ID ${idPaciente}`;
+
+    const p = pacientes.find(
+      x => x.id == idPaciente
+    );
+
+    return p
+      ? `${p.id} - ${p.nombre}`
+      : `ID ${idPaciente}`;
   };
 
   return (

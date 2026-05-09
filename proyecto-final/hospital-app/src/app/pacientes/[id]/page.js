@@ -1,21 +1,31 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 
 export default function DetallePaciente() {
+
   const { id } = useParams();
 
   const [paciente, setPaciente] = useState(null);
   const [citas, setCitas] = useState([]);
   const [historial, setHistorial] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
+
     if (!id) return;
 
     const cargar = async () => {
+
       try {
-        const [resPacientes, resCitas, resHistorial] = await Promise.all([
+
+        const [
+          resPacientes,
+          resCitas,
+          resHistorial
+        ] = await Promise.all([
           fetch("/api/pacientes"),
           fetch("/api/citas"),
           fetch("/api/historial"),
@@ -25,20 +35,48 @@ export default function DetallePaciente() {
         const citasData = await resCitas.json();
         const historialData = await resHistorial.json();
 
-        const p = pacientes.find(x => x.id == id);
-        setPaciente(p);
+        const p = pacientes.find(
+          x => x.id == id
+        );
 
-        setCitas(citasData.filter(c => c.id_paciente == id));
-        setHistorial(historialData.filter(h => h.id_paciente == id));
+        setPaciente(p || undefined);
+
+        setCitas(
+          citasData.filter(
+            c => c.id_paciente == id
+          )
+        );
+
+        setHistorial(
+          historialData.filter(
+            h => h.id_paciente == id
+          )
+        );
+
       } catch (err) {
+
         console.error(err);
+
+        setPaciente(undefined);
+
+      } finally {
+
+        setCargando(false);
       }
     };
 
     cargar();
+
   }, [id]);
 
-  if (!paciente) return   notFound();
+  if (cargando) {
+    return <p>Cargando...</p>;
+  }
+
+  if (paciente === undefined) {
+    notFound();
+  }
+
 
   return (
     <div className="container">
@@ -68,7 +106,7 @@ export default function DetallePaciente() {
         </div>
       ))}
 
-      <a href={`/historial?paciente=${paciente.id}`}>
+      <a href={`/historial`}>
         Ver historial completo
       </a>
     </div>
