@@ -1,47 +1,86 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function EditarMedicamento() {
+
   const params = useParams();
+  const router = useRouter();
 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [stock, setStock] = useState("");
   const [precio, setPrecio] = useState("");
-  const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/medicamentos")
-      .then(r => r.json())
-      .then(data => {
-        const m = data.find(x => x.id == params.id);
 
-        if (m) {
-          setNombre(m.nombre);
-          setDescripcion(m.descripcion || "");
-          setStock(m.stock);
-          setPrecio(m.precio);
+    if (!params.id) return;
+
+    const cargar = async () => {
+
+      try {
+
+        const res = await fetch(
+          `/api/medicamentos/${params.id}`
+        );
+
+        if (!res.ok) {
+          throw new Error("Medicamento no encontrado");
         }
-      });
-  }, [params.id]);
+
+        const m = await res.json();
+
+        setNombre(m.nombre || "");
+        setDescripcion(m.descripcion || "");
+        setStock(m.stock || "");
+        setPrecio(m.precio || "");
+
+      } catch (error) {
+
+        console.error(error);
+
+        router.push("/not-found");
+      }
+    };
+
+    cargar();
+
+  }, [params.id, router]);
 
   const guardar = async () => {
-    await fetch(`/api/medicamentos/${params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nombre,
-        descripcion,
-        stock: Number(stock),
-        precio: Number(precio)
-      })
-    });
 
-    window.location.href = "/medicamentos";
+    try {
+
+      const res = await fetch(
+        `/api/medicamentos/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nombre,
+            descripcion,
+            stock: Number(stock),
+            precio: Number(precio)
+          })
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Error actualizando");
+      }
+
+      router.push("/medicamentos");
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Error guardando medicamento");
+    }
   };
 
   return (
